@@ -86,10 +86,4 @@ struct ExchangeStat
 
 
 
-
-
-
-
-
-
 #endif // ZBYRATORTYPES4POLL_H
