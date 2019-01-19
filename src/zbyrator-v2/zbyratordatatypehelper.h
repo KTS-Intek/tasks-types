@@ -10,6 +10,9 @@
 #include <QDateTime>
 #include <QDataStream>
 #include <QDebug>
+
+
+///[!] tasks-types
 #include "src/zbyrator-v2/zbyratortypesv2.h"
 #include "src/meter/zbyratortypes4poll.h"
 
