@@ -1,3 +1,4 @@
+# Version=0.0.1
 #include(../../matilda-base/type-converter/type-converter.pri)
 #Dependencies -
 # tasks-types
