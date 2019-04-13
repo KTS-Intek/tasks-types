@@ -12,6 +12,7 @@ void ZbyratorDataTypeHelper::makeRegistration()
         qRegisterMetaTypeStreamOperators<MeterTransformer>("MeterTransformer");
         qRegisterMetaTypeStreamOperators<UniverslaMeterOnlyCache>("UniverslaMeterOnlyCache");
         qRegisterMetaTypeStreamOperators<PollDateMemoExt>("PollDateMemoExt");
+        qRegisterMetaTypeStreamOperators<PollDateMemoExtList>("PollDateMemoExtList");
 
     }
 }

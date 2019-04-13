@@ -126,7 +126,7 @@ struct PollDateMemoExt
 };
 
 
-
+typedef QList<PollDateMemoExt> PollDateMemoExtList;
 
 typedef QMap<quint8, MeterPollHistory> MapPollcodePollHistory;
 typedef QHash<QString, QMap<quint8, MeterPollHistory> > HashNi2MapHistory;//the history of the poll of meters

@@ -2,7 +2,7 @@
 #include(../../matilda-base/type-converter/type-converter.pri)
 #Dependencies -
 # tasks-types
-# type-conerter
+# type-converter
 
 INCLUDEPATH  += $$PWD\
                 $$PWD/../../defines/defines\
