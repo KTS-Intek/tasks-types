@@ -3,6 +3,7 @@
 
 
 #include <QVariantHash>
+#include <QtCore>
 
 #define DBGEXT_METERMANAGER         101
 #define DBGEXT_METERSCHEDULER       102
@@ -15,7 +16,7 @@ class DbgAboutSourceType
 public:
     static QVariantHash getAboutSourcType(){
         QVariantHash h;
-        h.insert("appName", "zbyrator-bbb");
+        h.insert("appName", qAppName());//  "zbyrator-bbb");
 
         /*
          * appName firefly-bbb
