@@ -11,9 +11,15 @@ PollDateMemoExt ConvertTaskTypes::getDateTimeMemo4poll(const QDateTime &dtPoll, 
     //electricity meter ready
     PollDateMemoExt d;
     d.fullTableName = PrettyValues::getFullTableName4poll(dtPoll, pollCode);
+    d.dtLastStartPoll = QDateTime::currentDateTimeUtc();
+
+#ifdef HASGUI4USR
+    if(pollCode == POLL_CODE_READ_METER_LOGBOOK && d.depth == 1 && d.dtLastStartPoll.addDays(-1).toString("yyyyMMdd") == PrettyValues::tableName2DateTime(d.fullTableName).toString("yyyyMMdd")){
+        d.fullTableName = PrettyValues::getFullTableName4poll(dtPoll.addDays(1), pollCode);
+    }
+#endif
 
     d.pollDateTime = PrettyValues::tableName2DateTime(d.fullTableName);
-    d.dtLastStartPoll = QDateTime::currentDateTimeUtc();
     d.depth = glybokoIntrvl;
 
     d.tableName = d.fullTableName.mid(4);
@@ -33,6 +39,8 @@ PollDateMemoExt ConvertTaskTypes::getDateTimeMemo4poll(const QDateTime &dtPoll, 
     case POLL_CODE_WTR_END_DAY      :
     case POLL_CODE_WTR_PERIOD       :
     case POLL_CODE_WTR_METER_LOGBOOK:{
+
+
         d.pollDateTimeFirstIntrvl = d.pollDateTime.addDays((-1) * glybokoIntrvl).addSecs(500);
         d.pollDateTimeNextIntrvl = d.pollDateTime.addDays(glybokoIntrvl);
         break;}
