@@ -145,7 +145,7 @@ struct ZbyratorTask
 {
 //    int id;
     quint8 stts;//add to queue , processing, finished
-    quint8 rez;//exchenge rezult
+    quint8 rez;//exchenge result
     quint8 srcId;//
     QString qckType;//коли починаю виконувати завдання, то додаю <Space> вкінці
     qint64 dtCreated;

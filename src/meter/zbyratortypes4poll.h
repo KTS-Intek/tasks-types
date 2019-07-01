@@ -60,7 +60,7 @@ struct ExchangeStat
 
     quint8 apiErrCounter;
 
-    quint8 emptyAnswerCounter;
+    quint8 emptyAnswerCounterStat;//it was empty AnswerCounter
 
     //poll statistic
     quint32 meterCountAll;
@@ -79,7 +79,7 @@ struct ExchangeStat
     QTime time4poll;//час між новими завданнями
     QTime time4multicast;//час для паузи в обміні, для системи агрегатування
 
-    ExchangeStat() : byte2meter(0), bytesFromMeter(0), totalMessCounter(0), usflDataLen(0), apiErrCounter(0), emptyAnswerCounter(0), meterCountAll(0),
+    ExchangeStat() : byte2meter(0), bytesFromMeter(0), totalMessCounter(0), usflDataLen(0), apiErrCounter(0), emptyAnswerCounterStat(0), meterCountAll(0),
         meterCountDone(0), meterCountErr(0), zbyratorCounter(0)  {}
 };
 
