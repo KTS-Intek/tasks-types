@@ -118,7 +118,7 @@ struct PollSchedule4meters
     PollDateTimeLimitation pdtlim;
 
     MapMetersProfiles hashProfiles;//QMap<quint8, OneProfileSett> MapMetersProfiles;//key: for electricity meter - pollCode, for water - the index in the list,
-    quint8 meterType;
+    quint8 deviceType;
     quint16 schedulePrtt;
 //    qint32 zatrymkaDoZapuskuSek;
 
@@ -127,8 +127,8 @@ struct PollSchedule4meters
     PollSchedule4meters(const MapMetersPriority2profilePollCode &hashPrttPollCode, const QStringList &listEnableDoW, const QTime &pollTimeFrom, const QTime &pollTimeTo, const MapMetersProfiles &hashProfiles) :
         hashPrttPollCode(hashPrttPollCode), pdtlim(listEnableDoW, pollTimeFrom, pollTimeTo), hashProfiles(hashProfiles) {}
 
-    PollSchedule4meters(const MapMetersPriority2profilePollCode &hashPrttPollCode, const QStringList &listEnableDoW, const QTime &pollTimeFrom, const QTime &pollTimeTo, const MapMetersProfiles &hashProfiles, const quint16 &meterType, const quint8 &schedulePrtt) :
-        hashPrttPollCode(hashPrttPollCode), pdtlim(listEnableDoW, pollTimeFrom, pollTimeTo), hashProfiles(hashProfiles), meterType(meterType), schedulePrtt(schedulePrtt) {}
+    PollSchedule4meters(const MapMetersPriority2profilePollCode &hashPrttPollCode, const QStringList &listEnableDoW, const QTime &pollTimeFrom, const QTime &pollTimeTo, const MapMetersProfiles &hashProfiles, const quint16 &deviceType, const quint8 &schedulePrtt) :
+        hashPrttPollCode(hashPrttPollCode), pdtlim(listEnableDoW, pollTimeFrom, pollTimeTo), hashProfiles(hashProfiles), deviceType(deviceType), schedulePrtt(schedulePrtt) {}
 };
 
 
@@ -201,7 +201,7 @@ struct StartPollStruct
     PollDateMemoExt pollDtMemo;
     quint8 pollCode;
     quint8 prtt;
-    quint8 meterType;
+    quint8 deviceType;// deviceType;
     QStringList listNi4poll;
     quint32 intrvl;
     quint32 kftnt;
@@ -210,8 +210,8 @@ struct StartPollStruct
 
     StartPollStruct(const bool &startPoll) : startPoll(startPoll) {}
 
-    StartPollStruct(const bool &startPoll, const PollDateMemoExt &pollDtMemo, const quint8 &pollCode, const quint8 &prtt, const quint8 &meterType, const QStringList &listNi4poll, const quint32 &intrvl, const quint32 &kftnt)
-        : startPoll(startPoll), pollDtMemo(pollDtMemo), pollCode(pollCode), prtt(prtt), meterType(meterType), listNi4poll(listNi4poll), intrvl(intrvl), kftnt(kftnt) {}
+    StartPollStruct(const bool &startPoll, const PollDateMemoExt &pollDtMemo, const quint8 &pollCode, const quint8 &prtt, const quint8 &deviceType, const QStringList &listNi4poll, const quint32 &intrvl, const quint32 &kftnt)
+        : startPoll(startPoll), pollDtMemo(pollDtMemo), pollCode(pollCode), prtt(prtt), deviceType(deviceType), listNi4poll(listNi4poll), intrvl(intrvl), kftnt(kftnt) {}
 
 };
 

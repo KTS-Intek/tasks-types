@@ -45,7 +45,7 @@ struct UniverslaMeterOnlyCache
 struct UniversalMeterSett
 {
 
-    quint8 meterType;//readOnly
+    quint8 deviceType;//readOnly  // deviceType;
     QString model;//write if Auto
     QString sn;//write
 
@@ -64,19 +64,20 @@ struct UniversalMeterSett
     MeterTransformer transformer;//readOnly
     bool disableTimeCorrection;//readOnly
 
+
     UniverslaMeterOnlyCache cache;
 
     UniversalMeterSett() {}
 
-    UniversalMeterSett(const quint8 &meterType, const QString &model, const QString &sn, const QString &ni, const QString &memo, const QString &passwd, const bool &pollEnbl, const QString enrg,
+    UniversalMeterSett(const quint8 &deviceType, const QString &model, const QString &sn, const QString &ni, const QString &memo, const QString &passwd, const bool &pollEnbl, const QString enrg,
                        const quint8 tariff, const QString coordinate, const QString &version, const QString &powerin, const MeterTransformer &transformer, const bool &disableTimeCorrection) :
-        meterType(meterType), model(model), sn(sn), ni(ni), memo(memo), passwd(passwd), pollEnbl(pollEnbl), enrg(enrg),
+        deviceType(deviceType), model(model), sn(sn), ni(ni), memo(memo), passwd(passwd), pollEnbl(pollEnbl), enrg(enrg),
         tariff(tariff), coordinate(coordinate), version(version), powerin(powerin), transformer(transformer), disableTimeCorrection(disableTimeCorrection) {}
 
 
     UniversalMeterSett(const QString &model, const QString &sn, const QString &ni, const QString &memo, const QString &passwd, const bool &pollEnbl, const QString enrg,
                        const quint8 tariff, const QString coordinate, const QString &version, const QString &powerin, const MeterTransformer &transformer, const bool &disableTimeCorrection) :
-        meterType(0xFF), model(model), sn(sn), ni(ni), memo(memo), passwd(passwd), pollEnbl(pollEnbl), enrg(enrg),
+        deviceType(0xFF), model(model), sn(sn), ni(ni), memo(memo), passwd(passwd), pollEnbl(pollEnbl), enrg(enrg),
         tariff(tariff), coordinate(coordinate), version(version), powerin(powerin), transformer(transformer), disableTimeCorrection(disableTimeCorrection) {}
 
 };
@@ -156,18 +157,18 @@ struct ZbyratorTask
     QString ni;
     quint8 pollCode;
     quint8 prtt4pollCode;//
-    quint8 meterType;
+    quint8 deviceType;// deviceType;
     PollDateMemoExt pollDtMemoExt;
 
     //date and time utc only
     quint32 kftnt;
     quint32 intrvl;
-    QStringList dow;
-    QStringList dom;
+    QStringList dow;//day of week
+    QStringList dom;//day of month
     QTime timtFrom;
     QTime timeTo;
 
-    ZbyratorTask() : stts(0xFF), rez(0xFF), srcId(0), counter(0), counterTotal(0), pollCode(0), prtt4pollCode(0xFF), meterType(0xFF) {}
+    ZbyratorTask() : stts(0xFF), rez(0xFF), srcId(0), counter(0), counterTotal(0), pollCode(0), prtt4pollCode(0xFF), deviceType(0xFF) {}
 };
 
 
@@ -197,6 +198,8 @@ struct ExchangeGlobalStat
 
 //    ExchangeGlobalStat() : zbyratorCounter(0)  {}
 };
+
+
 
 
 #endif // ZBYRATORTYPESV2_H

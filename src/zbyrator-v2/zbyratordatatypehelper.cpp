@@ -27,20 +27,20 @@ void ZbyratorDataTypeHelper::makeRegistration()
 
 QDataStream &operator <<(QDataStream &out, const ZbyratorTask &m)
 {
-    return out << m.stts << m.rez << m.srcId << m.qckType << m.dtCreated << m.dtFinished << m.counter << m.counterTotal << m.ni << m.pollCode << m.prtt4pollCode << m.meterType << m.pollDtMemoExt
+    return out << m.stts << m.rez << m.srcId << m.qckType << m.dtCreated << m.dtFinished << m.counter << m.counterTotal << m.ni << m.pollCode << m.prtt4pollCode << m.deviceType << m.pollDtMemoExt
                << m.kftnt<< m.intrvl << m.dow << m.dom << m.timtFrom << m.timeTo;
 }
 
 QDataStream &operator >>(QDataStream &in, ZbyratorTask &m)
 {
-    in >> m.stts >> m.rez >> m.srcId >> m.qckType >> m.dtCreated >> m.dtFinished >> m.counter >> m.counterTotal >> m.ni >> m.pollCode >> m.prtt4pollCode >> m.meterType >> m.pollDtMemoExt
+    in >> m.stts >> m.rez >> m.srcId >> m.qckType >> m.dtCreated >> m.dtFinished >> m.counter >> m.counterTotal >> m.ni >> m.pollCode >> m.prtt4pollCode >> m.deviceType >> m.pollDtMemoExt
             >> m.kftnt >> m.intrvl >> m.dow >> m.dom >> m.timtFrom >> m.timeTo;
     return in;
 }
 
 QDebug operator<<(QDebug d, const ZbyratorTask &m)
 {
-    d << m.stts << m.rez << m.srcId << m.qckType << m.dtCreated << m.dtFinished << m.counter << m.counterTotal << m.ni << m.pollCode << m.prtt4pollCode << m.meterType << m.pollDtMemoExt
+    d << m.stts << m.rez << m.srcId << m.qckType << m.dtCreated << m.dtFinished << m.counter << m.counterTotal << m.ni << m.pollCode << m.prtt4pollCode << m.deviceType << m.pollDtMemoExt
       << m.kftnt << m.intrvl << m.dow << m.dom << m.timtFrom << m.timeTo;
     return d;
 }
@@ -122,20 +122,20 @@ QDebug operator<<(QDebug d, const UniverslaMeterOnlyCache &m)
 
 QDataStream &operator <<(QDataStream &out, const UniversalMeterSett &m)
 {
-    return out << m.meterType << m.model << m.sn << m.ni << m.memo << m.passwd << m.pollEnbl << m.enrg << m.tariff << m.coordinate << m.version << m.powerin << m.transformer << m.disableTimeCorrection
+    return out << m.deviceType << m.model << m.sn << m.ni << m.memo << m.passwd << m.pollEnbl << m.enrg << m.tariff << m.coordinate << m.version << m.powerin << m.transformer << m.disableTimeCorrection
                << m.cache;
 }
 
 QDataStream &operator >>(QDataStream &in, UniversalMeterSett &m)
 {
-    in >> m.meterType >> m.model >> m.sn >> m.ni >> m.memo >> m.passwd >> m.pollEnbl >> m.enrg >> m.tariff >> m.coordinate >> m.version >> m.powerin >> m.transformer >> m.disableTimeCorrection
+    in >> m.deviceType >> m.model >> m.sn >> m.ni >> m.memo >> m.passwd >> m.pollEnbl >> m.enrg >> m.tariff >> m.coordinate >> m.version >> m.powerin >> m.transformer >> m.disableTimeCorrection
                    >> m.cache;
     return in;
 }
 
 QDebug operator<<(QDebug d, const UniversalMeterSett &m)
 {
-    d << m.meterType << m.model << m.sn << m.ni << m.memo << m.passwd << m.pollEnbl << m.enrg << m.tariff << m.coordinate << m.version << m.powerin << m.transformer << m.disableTimeCorrection
+    d << m.deviceType << m.model << m.sn << m.ni << m.memo << m.passwd << m.pollEnbl << m.enrg << m.tariff << m.coordinate << m.version << m.powerin << m.transformer << m.disableTimeCorrection
                << m.cache;
     return d;
 }
@@ -150,7 +150,7 @@ bool operator ==(const MeterTransformer &t0, const MeterTransformer &t1)
 bool operator ==(const UniversalMeterSett &s, const UniversalMeterSett &s1)
 {
     return (s.cache.enrg4vrsn == s1.cache.enrg4vrsn && s.coordinate == s1.coordinate && s.disableTimeCorrection == s1.disableTimeCorrection && s.enrg == s1.enrg && s.memo == s1.memo &&
-            s.meterType == s1.meterType && s.model == s1.model && s.ni == s1.ni && s.passwd == s1.passwd && s.pollEnbl == s1.pollEnbl && s.powerin == s1.powerin && s.sn == s1.sn &&
+            s.deviceType == s1.deviceType && s.model == s1.model && s.ni == s1.ni && s.passwd == s1.passwd && s.pollEnbl == s1.pollEnbl && s.powerin == s1.powerin && s.sn == s1.sn &&
             s.tariff == s1.tariff && s.transformer == s1.transformer && s.version == s1.version);
 }
 
