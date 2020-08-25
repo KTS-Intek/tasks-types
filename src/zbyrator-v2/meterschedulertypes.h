@@ -122,6 +122,10 @@ struct PollSchedule4meters
     quint16 schedulePrtt;
 //    qint32 zatrymkaDoZapuskuSek;
 
+    MapMetersPriority2profilePollCode hashPrttPollCodeRealView;//QMap<quint8, quint8> MapMetersPriority2profilePollCode;
+    MapMetersProfiles hashProfilesRealView;//QMap<quint8, OneProfileSett> MapMetersProfiles;//key: for electricity meter - pollCode, for water - the index in the list,
+
+
     PollSchedule4meters() {}
 
     PollSchedule4meters(const MapMetersPriority2profilePollCode &hashPrttPollCode, const QStringList &listEnableDoW, const QTime &pollTimeFrom, const QTime &pollTimeTo, const MapMetersProfiles &hashProfiles) :
@@ -213,6 +217,12 @@ struct StartPollStruct
     StartPollStruct(const bool &startPoll, const PollDateMemoExt &pollDtMemo, const quint8 &pollCode, const quint8 &prtt, const quint8 &deviceType, const QStringList &listNi4poll, const quint32 &intrvl, const quint32 &kftnt)
         : startPoll(startPoll), pollDtMemo(pollDtMemo), pollCode(pollCode), prtt(prtt), deviceType(deviceType), listNi4poll(listNi4poll), intrvl(intrvl), kftnt(kftnt) {}
 
+};
+
+struct MeterRealViewSettings
+{
+    QMap<quint8,QStringList> rvPollCode2meterNIs;//if empty all possible NIs
+    MeterRealViewSettings() {}
 };
 
 #endif // METERSCHEDULERTYPES_H

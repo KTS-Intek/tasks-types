@@ -200,6 +200,30 @@ struct ExchangeGlobalStat
 };
 
 
+//protocol 9, virtual meter for energy monitor
+
+struct OneVirtualMeter
+{
+
+    bool isValid;
+    bool isSinglePhase;
+    //adresses
+    qint32 aPhaseAddr;
+    qint32 bPhaseAddr;
+    qint32 cPhaseAddr;
+
+
+    QString memo;
+    OneVirtualMeter() : isValid(false), isSinglePhase(false), aPhaseAddr(-1), bPhaseAddr(-1), cPhaseAddr(-1) {} //-1 - is disabled
+};
+
+typedef QHash<QString, OneVirtualMeter> ZVirtualMeters; //GSN to meter settings
+
+
+typedef QHash<QString, ZVirtualMeters> NI2vmGSNsett;
+
+
+
 
 
 #endif // ZBYRATORTYPESV2_H

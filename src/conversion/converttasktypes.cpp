@@ -76,6 +76,12 @@ PollDateMemoExt ConvertTaskTypes::getDateTimeMemo4poll(const QDateTime &dtPoll, 
             d.pollDateTimeNextIntrvl = d.pollDateTime.addMonths(intrvl);
             break;}
 
+        case POLL_KFTNT_SECONDS:{ //
+            d.pollDateTimeFirstIntrvl = d.pollDateTime.addSecs((-1) * intrvlMinus);
+            d.pollDateTimeNextIntrvl = d.pollDateTime.addSecs(intrvlMinus);
+            break;}
+
+
         default:{
             d.pollDateTimeNextIntrvl = d.pollDateTime;
             d.pollDateTimeFirstIntrvl = d.pollDateTime.addDays((-1) * glybokoIntrvl).addSecs(500);
