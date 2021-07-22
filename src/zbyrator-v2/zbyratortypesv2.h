@@ -9,7 +9,6 @@
 //#include "src/emb/ifaceexchangeserializedtypes.h"
 
 
-//from meteroperations.h
 struct MeterTransformer{
     bool hasTransformer;
     bool only4display;
@@ -54,7 +53,7 @@ struct UniversalMeterSett
     QString passwd;//readOnly
     bool pollEnbl;//readOnly
 
-    QString enrg; //readOnly coma separated line, this is a sleep profile to water meters
+    QString enrg; //readOnly coma separated line, this is a sleep profile to water meters, channel sett for pulse meter '|' separated
     quint8 tariff;//readOnly
 
     QString coordinate;//readOnly
@@ -102,10 +101,11 @@ struct MissingData
     QStringList niWithMissingData;
     QStringList tableNamesWithMissingData;
     QMap<QString, QStringList> tableName2missingNis;
-    QStringList messList;
+    QStringList messageList;
+    QStringList niWithMissingSN;//and perhaps, data
     MissingData() {}
-    MissingData(const QStringList &niWithMissingData, const QStringList &tableNamesWithMissingData, const QMap<QString, QStringList> &tableName2missingNis, const QStringList &messList)
-        : niWithMissingData(niWithMissingData), tableNamesWithMissingData(tableNamesWithMissingData), tableName2missingNis(tableName2missingNis), messList(messList) {}
+    MissingData(const QStringList &niWithMissingData, const QStringList &tableNamesWithMissingData, const QMap<QString, QStringList> &tableName2missingNis, const QStringList &messageList)
+        : niWithMissingData(niWithMissingData), tableNamesWithMissingData(tableNamesWithMissingData), tableName2missingNis(tableName2missingNis), messageList(messageList) {}
 };
 
 struct PollDateMemoExt
@@ -222,8 +222,21 @@ typedef QHash<QString, OneVirtualMeter> ZVirtualMeters; //GSN to meter settings
 
 typedef QHash<QString, ZVirtualMeters> NI2vmGSNsett;
 
+//protocol 11, pulse meter virtualization settings
+struct OnePulseChannel
+{
+    quint8 useAsDeviceType;
+    qreal divisor; //it is better to use divisor instead of multiplier, it is more accurate
+    qreal initValue;
 
+//    QString vSN;//<deviceSn>-<ch number>,
 
+    OnePulseChannel() : useAsDeviceType(3), divisor(0.0), initValue(0.0) {}
+};
+
+typedef QMap<quint8,OnePulseChannel> PulseChannel2Settings;
+
+typedef QHash<QString, PulseChannel2Settings> Enrg2pulseChannelsSettings;//enrg line to decoded settings
 
 
 #endif // ZBYRATORTYPESV2_H

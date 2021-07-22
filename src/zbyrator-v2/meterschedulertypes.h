@@ -63,6 +63,24 @@ typedef QMap<quint8, OneProfileSett> MapMetersProfiles;//key is the poll code
 typedef QMap<quint8, quint8> MapMetersPriority2profilePollCode;//prioritt 2 pollCode
 typedef QMap<QString, MeterSleepProfile> MapProfLine2sleepProfile;//key is a sleep profile line
 
+
+struct PulseMeterChannelsSettings
+{
+    quint8 useAsDeviceType;
+    qreal divisor;
+    qreal initValue;
+
+    PulseMeterChannelsSettings()  : useAsDeviceType(3), divisor(0.0), initValue(0.0) {} //3 - means pulse meter, so ignore the results
+
+    PulseMeterChannelsSettings(const quint8 &useAsDeviceType, const qreal &divisor, const qreal &initValue) :
+        useAsDeviceType(useAsDeviceType), divisor(divisor), initValue(initValue) {} //3 - means pulse meter, so ignore the results
+};
+
+typedef QMap<quint8, PulseMeterChannelsSettings> PulseMeterChannel2params;//key is a number of the input channel
+typedef QHash<QString, PulseMeterChannel2params> PulseMeterNi2channelsSettings;
+
+
+
 //typedef QMap<quint8, OneProfileSettWtr> MapWaterMetersProfilesSequence; //an extension for water, a key is the profile's priority (index in the table) //deprecated
 
 //water settings have a bigger prioriy then settings for electricity meters
@@ -140,7 +158,7 @@ struct UniversalMeter
 {
     UniversalMeterSettList activeNi4meters;//NIs of meters that is ready for readout
     QByteArray meterSha256;
-    HashNi2MapHistory hashNi2lastPollMeter;//the history of the poll of electricity meters
+    HashNi2MapHistory hashNi2lastPollMeter;//the history of the poll of electricity meters, must contains only pollDtMemo.pollDateTime
     bool setIgnoreCounter; //кажу щоб ігнорив повтори по цьому лічильнику один раз при додаванні в чергу якщо true, в іншому випадку керується кешем
     QList<quint8> lastPrttList;
 
@@ -187,6 +205,38 @@ struct WaterMeters
     WaterMeters() {}
     WaterMeters(const UniversalMeterSettList &activeNi4waterMeters, const QByteArray &waterMeterSha256, const HashNi2MapHistory &hashNi2lastPollWaterMeter, const MapProfLine2sleepProfile &schedule4waterMeters, const PollSchedule4meters &schedule4pollMeters) :
         ucm(UniversalMeter(activeNi4waterMeters, waterMeterSha256, hashNi2lastPollWaterMeter)), schedule4waterMeters(schedule4waterMeters), schedule4pollMeters(schedule4pollMeters) {}
+} ;
+
+struct GasMeters
+{
+    UniversalMeter ucm;
+    PollSchedule4meters schedule4pollMeters;
+
+
+    GasMeters() {}
+    GasMeters(const UniversalMeterSettList &activeNi4pulseMeters, const QByteArray &pulseMeterSha256, const HashNi2MapHistory &hashNi2lastPollPulseMeter,
+                const PollSchedule4meters &schedule4pollMeters)
+        : ucm(UniversalMeter(activeNi4pulseMeters, pulseMeterSha256, hashNi2lastPollPulseMeter)),
+          schedule4pollMeters(schedule4pollMeters){}
+
+} ;
+
+
+struct PulseMeters
+{
+    UniversalMeter ucm;
+    PollSchedule4meters schedule4pollMeters;
+
+    PulseMeterNi2channelsSettings channelsSettings;
+
+    PulseMeters() {}
+    PulseMeters(const UniversalMeterSettList &activeNi4pulseMeters, const QByteArray &pulseMeterSha256, const HashNi2MapHistory &hashNi2lastPollPulseMeter,
+                const PollSchedule4meters &schedule4pollMeters,
+                const PulseMeterNi2channelsSettings &channelsSettings)
+        : ucm(UniversalMeter(activeNi4pulseMeters, pulseMeterSha256, hashNi2lastPollPulseMeter)),
+          schedule4pollMeters(schedule4pollMeters),
+          channelsSettings(channelsSettings){}
+
 } ;
 
 

@@ -28,8 +28,10 @@ struct ZbyratorTaskTable
     QHash<QString,quint32> hashQckType2pid;//кешую qckTyp з прив'язкою до pid завдання
 
 //    QMap<quint8, QList<int> > mapTaskPriority2pids;
-    QMap<quint8, QMap<quint8, MyUIntList > > mapMeterTypeAndPriority2pids;
+//    QMap<quint8, QMap<quint8, MyUIntList > > mapMeterTypeAndPriority2pids;//why do I use it, device poll can loop on one device type, and never go to the next if there are no answers
+    //it is better to use device groups, than device types to pids
 
+    QMap<quint8, QMap<quint8, MyUIntList > > mapDeviceGroupsAndPriority2pids;
 
     MyUIntList uconPids;//все що створено через UCon зберігається тут
     UniversalMeterSettList uconMeters;//лічильники що опитуватимуться із-за команди з UCon будуть зберігатися тут

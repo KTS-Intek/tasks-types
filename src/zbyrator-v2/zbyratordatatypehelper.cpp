@@ -51,20 +51,20 @@ QDebug operator<<(QDebug d, const ZbyratorTask &m)
 
 QDataStream &operator <<(QDataStream &out, const ZbyratorTaskTable &m)
 {
-    return out << m.mapTaskTable << m.hashQckType2pid << m.mapMeterTypeAndPriority2pids << m.currentTaskId << m.currentTaskStarted << m.uconPids
+    return out << m.mapTaskTable << m.hashQckType2pid << m.mapDeviceGroupsAndPriority2pids << m.currentTaskId << m.currentTaskStarted << m.uconPids
                << m.uconMeters << m.mapTaskTableDone << m.finishedPids << m.ni2goodAnswer << m.enPowerMangement << m.enUconPowerManagement;
 }
 
 QDataStream &operator >>(QDataStream &in, ZbyratorTaskTable &m)
 {
-    in >> m.mapTaskTable >> m.hashQckType2pid >> m.mapMeterTypeAndPriority2pids >> m.currentTaskId >> m.currentTaskStarted >> m.uconPids
+    in >> m.mapTaskTable >> m.hashQckType2pid >> m.mapDeviceGroupsAndPriority2pids >> m.currentTaskId >> m.currentTaskStarted >> m.uconPids
             >> m.uconMeters >> m.mapTaskTableDone >> m.finishedPids >> m.ni2goodAnswer >> m.enPowerMangement >> m.enUconPowerManagement;
     return in;
 }
 
 QDebug operator<<(QDebug d, const ZbyratorTaskTable &m)
 {
-    d << m.mapTaskTable << m.hashQckType2pid << m.mapMeterTypeAndPriority2pids  << m.currentTaskId << m.currentTaskStarted << m.uconPids
+    d << m.mapTaskTable << m.hashQckType2pid << m.mapDeviceGroupsAndPriority2pids  << m.currentTaskId << m.currentTaskStarted << m.uconPids
       << m.uconMeters << m.mapTaskTableDone << m.finishedPids << m.ni2goodAnswer << m.enPowerMangement << m.enUconPowerManagement;
     return d;
 }

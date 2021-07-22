@@ -3,6 +3,7 @@
 #Dependencies -
 # tasks-types
 # type-converter
+# tasks-shared
 
 INCLUDEPATH  += $$PWD\
                 $$PWD/../../defines/defines\

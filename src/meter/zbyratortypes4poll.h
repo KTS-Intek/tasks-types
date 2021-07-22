@@ -4,7 +4,6 @@
 #include <QDateTime>
 #include <QVariantHash>
 #include <QVariantMap>
-//#include "src/meter/meteroperations.h"
 
 
 struct FindEmptyCellCache
