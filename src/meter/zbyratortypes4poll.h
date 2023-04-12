@@ -40,7 +40,7 @@ struct ZbyratorLogoutLater
 {
     QByteArray meterNIfromList;
     QByteArray meterNIfromTable;
-    QVariantHash exitMessSett;
+    QVariantHash exitMessageSett;
     QString model;
     QDateTime dtUpdated;
     ZbyratorLogoutLater() {}

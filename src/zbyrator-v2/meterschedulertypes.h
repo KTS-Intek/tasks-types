@@ -162,20 +162,25 @@ struct UniversalMeter
     bool setIgnoreCounter; //кажу щоб ігнорив повтори по цьому лічильнику один раз при додаванні в чергу якщо true, в іншому випадку керується кешем
     QList<quint8> lastPrttList;
 
-    UniversalMeter() {}
+    UniversalMeter() : setIgnoreCounter(false) {}
     UniversalMeter(const UniversalMeterSettList &activeNi4meters, const QByteArray &meterSha256, const HashNi2MapHistory &hashNi2lastPollMeter) :
-        activeNi4meters(activeNi4meters), meterSha256(meterSha256), hashNi2lastPollMeter(hashNi2lastPollMeter) {}
+        activeNi4meters(activeNi4meters), meterSha256(meterSha256), hashNi2lastPollMeter(hashNi2lastPollMeter), setIgnoreCounter(false) {}
 
 };
+
 
 struct ElectricityMeters
 {
     UniversalMeter ucm;
-    PollSchedule4meters schedule4pollMeters;
-    ElectricityMeters() {}
-    ElectricityMeters(const UniversalMeterSettList &activeNi4electricityMeters, const QByteArray &electricityMeterSha256, const HashNi2MapHistory &hashNi2lastPollElectricityMeter, const PollSchedule4meters &schedule4pollMeters)
-        : ucm(UniversalMeter(activeNi4electricityMeters, electricityMeterSha256, hashNi2lastPollElectricityMeter)), schedule4pollMeters(schedule4pollMeters) {}
 
+    PollSchedule4meters schedule4pollMeters;
+
+
+    ElectricityMeters() {}
+    ElectricityMeters(const UniversalMeterSettList &activeNi4electricityMeters, const QByteArray &electricityMeterSha256,
+                      const HashNi2MapHistory &hashNi2lastPollElectricityMeter, const PollSchedule4meters &schedule4pollMeters)
+        : ucm(UniversalMeter(activeNi4electricityMeters, electricityMeterSha256, hashNi2lastPollElectricityMeter)),
+          schedule4pollMeters(schedule4pollMeters) {}
 } ;
 
 struct WaterMeterProfileStamp
@@ -202,16 +207,19 @@ struct WaterMeters
 //    PollDateTimeLimitation pdtlim; at hashProfiles
 
     QStringList checkedLines;
+
+
     WaterMeters() {}
-    WaterMeters(const UniversalMeterSettList &activeNi4waterMeters, const QByteArray &waterMeterSha256, const HashNi2MapHistory &hashNi2lastPollWaterMeter, const MapProfLine2sleepProfile &schedule4waterMeters, const PollSchedule4meters &schedule4pollMeters) :
-        ucm(UniversalMeter(activeNi4waterMeters, waterMeterSha256, hashNi2lastPollWaterMeter)), schedule4waterMeters(schedule4waterMeters), schedule4pollMeters(schedule4pollMeters) {}
+    WaterMeters(const UniversalMeterSettList &activeNi4waterMeters, const QByteArray &waterMeterSha256, const HashNi2MapHistory &hashNi2lastPollWaterMeter,
+                const MapProfLine2sleepProfile &schedule4waterMeters, const PollSchedule4meters &schedule4pollMeters) :
+        ucm(UniversalMeter(activeNi4waterMeters, waterMeterSha256, hashNi2lastPollWaterMeter)),
+        schedule4waterMeters(schedule4waterMeters), schedule4pollMeters(schedule4pollMeters) {}
 } ;
 
 struct GasMeters
 {
     UniversalMeter ucm;
     PollSchedule4meters schedule4pollMeters;
-
 
     GasMeters() {}
     GasMeters(const UniversalMeterSettList &activeNi4pulseMeters, const QByteArray &pulseMeterSha256, const HashNi2MapHistory &hashNi2lastPollPulseMeter,
@@ -235,9 +243,22 @@ struct PulseMeters
                 const PulseMeterNi2channelsSettings &channelsSettings)
         : ucm(UniversalMeter(activeNi4pulseMeters, pulseMeterSha256, hashNi2lastPollPulseMeter)),
           schedule4pollMeters(schedule4pollMeters),
-          channelsSettings(channelsSettings){}
+          channelsSettings(channelsSettings) {}
 
 } ;
+
+
+struct IndividualSchedulesParams
+{
+    bool asExternal; // true - task src - UCon in other case schedule
+    quint8 defScheduleMode; //0 - keep in the Default, 1 - allow in the Default when this is not active, 2 - remove from the default
+
+
+    IndividualSchedulesParams() : asExternal(false), defScheduleMode(0)  {}
+
+    IndividualSchedulesParams(const bool &asExternal, const quint8 &defScheduleMode) :
+        asExternal(asExternal), defScheduleMode(defScheduleMode) {}
+};
 
 
 struct MetersGlobal
@@ -247,6 +268,33 @@ struct MetersGlobal
     MetersGlobal() {}
     MetersGlobal(const QMap<quint8,QDateTime> &hashLastDateTime, const QMap<quint8,QByteArray> &mapPollCode2niListSha256) : hashLastDateTime(hashLastDateTime), mapPollCode2niListSha256(mapPollCode2niListSha256) {}
 } ;
+
+
+struct DevicesIndividualSchedules
+{
+    //<individual schedule name> <settings>
+
+    QHash<QString, IndividualSchedulesParams> eMetersParams;
+    QHash<QString, ElectricityMeters> eMetersSchedules;
+    QHash<QString, MetersGlobal> eMetersGlobal;
+
+    QHash<QString, IndividualSchedulesParams> wMetersParams;
+    QHash<QString, WaterMeters> wMetersSchedules;
+    QHash<QString, MetersGlobal> wMetersGlobal;
+
+    QHash<QString, IndividualSchedulesParams> pMetersParams;
+    QHash<QString, PulseMeters> pMetersSchedules;
+    QHash<QString, MetersGlobal> pMetersGlobal;
+
+    QHash<QString, IndividualSchedulesParams> gMetersParams;
+    QHash<QString, GasMeters> gMetersSchedules;
+    QHash<QString, MetersGlobal> gMetersGlobal;
+
+    DevicesIndividualSchedules() {}
+};
+
+
+
 
 
 struct StartPollStruct

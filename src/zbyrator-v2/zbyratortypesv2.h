@@ -137,6 +137,7 @@ typedef QList<quint32> MyUIntList;
 typedef QList<quint8> MyUInt8List;
 typedef QList<quint32> MyUInt32List;
 typedef QMap<QString,QString> MyNi2model;
+typedef QMap<quint16,QStringList> MapPollCodeNIs;
 
 //може бути ситуація коли завдяння створено через розклад або через ЮКОН, і в процесі виконання буде створене нове подібне
 //по завершенню першого воно повинно злитися з наступним, при умові
