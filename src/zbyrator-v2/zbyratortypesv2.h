@@ -83,6 +83,7 @@ struct UniversalMeterSett
 
 
 typedef QList<UniversalMeterSett> UniversalMeterSettList;
+typedef QHash<QString, UniversalMeterSett> UniversalMeterSettHash;
 
 struct MeterPollHistory
 {
